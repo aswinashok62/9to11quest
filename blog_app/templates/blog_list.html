@@ -1,0 +1,26 @@
+<a href="{% url 'add_blog' %}">Add Blog</a> |
+<a href="{% url 'logout' %}">Logout</a>
+
+{% for blog in blogs %}
+  <h2>{{ blog.title }}</h2>
+
+  {% if blog.image %}
+    <img src="{{ blog.image.url }}" width="300">
+  {% endif %}
+
+  <p>{{ blog.content }}</p>
+  <small>{{ blog.author }}</small><br><br>
+
+  {% if blog.author == request.user %}
+
+        <a href="{% url 'edit_blog' blog.id %}">Edit</a>
+        |
+        <a href="{% url 'delete_blog' blog.id %}"
+          onclick="return confirm('Are you sure?')">
+          Delete
+        </a>
+
+  {% endif %}
+  
+  <hr>
+{% endfor %}
